@@ -1,3 +1,9 @@
+---
+layout: default
+title: Настройка кодовой страницы для русского языка
+parent: Лайфхак
+nav_order: 2
+---
 # Настройка кодовой страницы для русского языка
 Теория [здесь](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/).  
 И [здесь](http://www.unn.ru/pages/e-library/vestnik/99999999_West_2011_3%282%29/47.pdf).
