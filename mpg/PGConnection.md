@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Простая.Программа MPG для работы с PostgreSQL
+title: Простая. Программа MPG для работы с PostgreSQL
 parent: mpg
 nav_order: 1
 ---
