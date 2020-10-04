@@ -1,5 +1,6 @@
 remote_theme: pmarsceill/just-the-docs
 timezone: Asia/Yekaterinburg
+future: true
 docs_list_title: MPG. Руководство шаг за шагом.
 docs:
 
