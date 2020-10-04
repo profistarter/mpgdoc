@@ -1,3 +1,9 @@
+---
+layout: default
+title:  Добавление библиотеки тестирования doctest и FakeIt
+parent: Лайфхак
+nav_order: 3
+---
 # Добавление библиотеки тестирования doctest и FakeIt
 ## Установка библиотеки doctest
 Для тестирования программы будем использовать библиотеку doctest. Скачиваем zip архив с сайта https://github.com/onqtam/doctest. Разархивируем и копируем файл с папкой doctest/doctest.h в папку _include, расположенную на одном уровне с нашим проектом.  
