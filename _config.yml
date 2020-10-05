@@ -1,2 +1,6 @@
 remote_theme: pmarsceill/just-the-docs
-color_scheme: mpgdoc_dark
+# color_scheme: mpgdoc_dark
+markdown: kramdown
+    highlighter: rouge
+    kramdown:
+      input: GFM
