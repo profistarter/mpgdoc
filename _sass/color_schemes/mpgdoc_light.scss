@@ -1,93 +1,5 @@
-figure.highlight,
-pre.highlight {
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    overflow: auto;
-    line-height: 1.4rem;
-    position: relative;
-}
-
-.highlighter-rouge {
-    font-weight: 300;
-    position: relative;
-}
-
-p code.highlighter-rouge,
-p kbd {
-    color: #cc6666;
-    font-size: 1rem;
-    background-color: $code-inline-bg;
-    padding: 2px 4px;
-    border-radius: 2px;
-    word-break: break-word;
-}
-
-kbd {
-    border: 1px solid $gray-800;
-    border-radius: 4px;
-}
-
-/* "data-lang" should be injected by JavaScript */
-/*
-figure.highlight::before,
-div.highlighter-rouge::before {
-    font-family: $font-family-monospace;
-    content: attr(data-lang);
-    font-size: .9rem;
-    color: $gray-200;
-    position: absolute;
-    display: block;
-    height: 1rem;
-    right: .5rem;
-    z-index: 5;
-}
-figure.highlight::before {
-    margin-top: -1rem;
-}
-*/
-
-.rouge-table .code pre {
-    overflow: hidden;
-}
-
-.rouge-table .code pre {
-    overflow: hidden;
-}
-
-table.rouge-table,
-table.rouge-table tr,
-table.rouge-table td,
-table.rouge-table pre {
-    border: 0;
-    padding: 0;
-    margin: 0;
-}
-
-table.rouge-table td.gutter {
-    padding-right: .5rem;
-    border-right: 1px solid $gray-500;
-}
-
-table.rouge-table td.code {
-    padding-left: .5rem;
-}
-
-figure pre {
-    margin-bottom: 0;
-}
-
-.lineno {
-    text-align: right;
-}
-
-/* Base16 Tomorrow Dark by Chris Kempson; https://github.com/idleberg */
-.highlight,
-.highlight pre,
-.highlight table {
-    background: $code-bg;
-    color: $gray-200;
-    border-radius: 4px;
-    font-size: 1rem;
+.code {
+    color: #212529;
 }
 
 .highlight .hll { background-color: #373b41 }
@@ -95,7 +7,7 @@ figure pre {
 .highlight .err { color: #cc6666 } /* Error */
 .highlight .k { color: #b294bb } /* Keyword */
 .highlight .l { color: #de935f } /* Literal */
-.highlight .n, .highlight .h { color: #ffffff } /* Name */
+/*.highlight .n, .highlight .h { color: #ffffff } /* Name */
 .highlight .o { color: #8abeb7 } /* Operator */
 .highlight .p { color: #ffffff } /* Punctuation */
 .highlight .cm { color: #969896 } /* Comment.Multiline */
