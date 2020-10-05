@@ -34,7 +34,8 @@ nav_order: 2
 ```c++
     std::cout << cpt("Русский текст.", CP_UTF8, CP_OEMCP)  << std::endl;
     //или
-    std::cout << cpt("Русский текст.")  << std::endl; // CP_UTF8, CP_OEMCP - по умолчанию
+    SetConsoleOutputCP(1251);
+    std::cout << cpt("Русский текст.")  << std::endl; // CP_UTF8, CP_ACP - по умолчанию
 ```  
 Еще, если, например, нужно записать текст, введенный в консоли windows в файл, то используем обратное преобразование (помним, что консоль понимает одну кодировку - обычно cp866, - а файл записывается в другой кодировке - y нас utf-8).
 ```c++
@@ -54,17 +55,18 @@ utils.h
 std::string cpt(const char *str, unsigned int srcCP = CP_UTF8, unsigned int dstCP = CP_ACP);
 bool is_valid_utf8(const char * string);
 ```
-Эти функции взяты [отсюда](https://ru.stackoverflow.com/questions/783946/Конвертировать-в-кодировку-utf8)).  
+Эти функции взяты [отсюда](https://ru.stackoverflow.com/questions/783946/Конвертировать-в-кодировку-utf8).  
 ```cpt()``` - фукция преобразования кодировки;  
 ```is_valid_utf8()``` - функция проверки на кодировку utf-8.  
   
 В функцию  ```cpt()``` мы передаем три аргумента:
 - ```const char *str``` - строка, которую хотим преобразовать;
-- ``` unsigned int srcCP``` - номер кодовой страницы строки. По умолчанию ```CP_UTF8``` - эта константа определена в ```<windows.h>```. В подавляющем большинстве случаев будем испольщовать именно ее.
+- ``` unsigned int srcCP``` - номер кодовой страницы строки. По умолчанию ```CP_UTF8``` - эта константа определена в ```<windows.h>```. В подавляющем большинстве случаев будем использовать именно ее.
 - ```unsigned int dstCP``` - номер кодовой страницы, в которую необходимо преобразовать строку. По умолчанию ```CP_ACP``` - эта константа определена в ```<windows.h>```.  
 ```CP_ACP``` - системная кодовая страница ANSI Windows по умолчанию (в большинстве случаев windows1251).  
-Мы также можем использовать ```CP_OEMCP``` - текущая системная кодовая страница OEM (в большинстве случаев cp866).
-Подробнее о константах кодовых страниц можно посмотреть в описании функции [```MultiByteToWideChar()```] (https://docs.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar).
+Мы также можем использовать ```CP_OEMCP``` - текущая системная кодовая страница OEM (в большинстве случаев cp866).  
+Подробнее о константах кодовых страниц можно посмотреть в описании функции [MultiByteToWideChar] (https://docs.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar).  
+Что такое ANSI и OEM см. [теорию](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/).
   
 В файл реализации помещаем реализацию этих фукций:  
 utils.cpp
