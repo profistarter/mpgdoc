@@ -253,7 +253,7 @@ TEST_SUITE("Тест класса PGPool_Threads")
 #define DOCTEST_CONFIG_DISABLE
 #include "doctest/doctest.h"
 ```
-Эти две строчки кода дают команду не включать код тестов в компилируемую программу. Для этого есть файл ```test.cpp``` (см. раздел [Подключение библиотеки тестирования](../laif_hack/preparation.md)) .
+Эти две строчки кода дают команду не включать код тестов в компилируемую программу. Для этого есть файл ```test.cpp``` (см. раздел [Подключение библиотеки тестирования](../life_hack/preparation.md)) .
 ```c++
 #include <vector>
 #include <functional>
