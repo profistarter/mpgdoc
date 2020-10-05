@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Кириллица в консоли
-parent: Лайфхак
+parent: Лайфхаки
 nav_order: 2
 ---
 # Кириллица в консоли
