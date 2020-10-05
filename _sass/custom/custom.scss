@@ -5,7 +5,10 @@
 .highlight .hll { background-color: #373b41 }
 .highlight .c { color: #969896 } /* Comment */
 .highlight .err { color: #cc6666 } /* Error */
-.highlight .k { color: #b294bb } /* Keyword */
+.highlight .k, .highlight .kv {
+  color: #000000;
+  font-weight: bold;
+}
 .highlight .l { color: #de935f } /* Literal */
 .highlight .n, .highlight .h { color: inherit } /* Name */
 .highlight .o { color: #000000 } /* Operator */
