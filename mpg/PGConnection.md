@@ -20,6 +20,7 @@ nav_order: 1
 
 app.cpp
 ```c++
+#include <windows.h>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -30,7 +31,7 @@ class PGConnection
 private:
 
     std::string dbhost = "localhost";
-    std::string dbport = "5433";
+    std::string dbport = "5432";
     std::string dbname = "testdb";
     std::string dbuser = "postgres";
     std::string dbpass = "1";
@@ -52,6 +53,7 @@ public:
 
         if (PQstatus(connection.get()) != CONNECTION_OK)
         {
+            std::cout << PQerrorMessage(connection.get()) << std::endl;
             throw std::runtime_error(PQerrorMessage(connection.get()));
         }
     }
@@ -60,6 +62,7 @@ public:
     {
         PGresult *res = PQexec(connection.get(), query);
         if (PQresultStatus(res) == PGRES_FATAL_ERROR){
+            std::cout << PQerrorMessage(connection.get()) << std::endl;
             throw std::runtime_error(PQerrorMessage(connection.get()));
         }
         int result_n = PQntuples(res);
@@ -70,6 +73,7 @@ public:
 
 int main()
 {
+    SetConsoleOutputCP(1251);
     PGConnection* conn = new PGConnection();
     std::cout << conn->exec("SELECT 1+1");
     delete conn;
