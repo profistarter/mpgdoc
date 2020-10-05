@@ -15,16 +15,16 @@ nav_order: 1
   
 # Простая программа mpg для работы с PostgreSQL
 В листинге приведен код простой программы, которая устанавливает соединение и выполняет запрос.  
-Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/e7838495fad0985bfc7ab71625948ce185878986) (это ссылка на файлы коммита).  
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/e90c25c6c5e295553a146ce77af7832192d54e6a) (это ссылка на файлы коммита).  
 В папке с нашими проектами, например, ```c:/Мои проекты```, создаем папку ```mpg``` в этой папке добавим файл ```app.cpp```. Поместим код программы в файл ```app.cpp```.  
 
 app.cpp
 ```c++
-#include <windows.h>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <libpq-fe.h>
+#include "../utils/utils.h" // +++++
 
 class PGConnection
 {
@@ -53,7 +53,7 @@ public:
 
         if (PQstatus(connection.get()) != CONNECTION_OK)
         {
-            std::cout << PQerrorMessage(connection.get()) << std::endl;
+            std::cout << PQerrorMessage(connection.get()) << std::endl; // +++++
             throw std::runtime_error(PQerrorMessage(connection.get()));
         }
     }
@@ -62,7 +62,7 @@ public:
     {
         PGresult *res = PQexec(connection.get(), query);
         if (PQresultStatus(res) == PGRES_FATAL_ERROR){
-            std::cout << PQerrorMessage(connection.get()) << std::endl;
+            std::cout << cpt(PQerrorMessage(connection.get())) << std::endl; // +++++
             throw std::runtime_error(PQerrorMessage(connection.get()));
         }
         int result_n = PQntuples(res);
@@ -73,7 +73,7 @@ public:
 
 int main()
 {
-    SetConsoleOutputCP(1251);
+    SetConsoleOutputCP(1251); // +++++
     PGConnection* conn = new PGConnection();
     std::cout << conn->exec("SELECT 1+1");
     delete conn;
@@ -88,8 +88,18 @@ int main()
 
 В функции  ```main()``` создаем экземпляр класса ```PQConnection``` и выполняем запрос.
 В результате выполнения программы получим 1. Запрос ```"SELECT 1+1"``` возращает одну строку с одним столбцом и значением 2.  
-Обращаем внимание, что в конце ```main()``` вызываем ```delete conn```, чтобы очистить ресурсы выделенные оператором new.
-
+Обращаем внимание, что в конце ```main()``` вызываем ```delete conn```, чтобы очистить ресурсы выделенные оператором new.  
+  
+## Отображение кириллицы в windows консоли
+Еще одно замечание по отображению кириллицы в windows консоли.  
+Обращаем внимание читателя на строки, помеченные ```// +++++```.  
+Здесь включаем модуль ```utils```, чтобы правильно отображать ошибки, возвращаемые PostgreSQL. Описание модуля и включения кириллицы см. [здесь](../life_hack/on_cyrillic.md). 
+```c++
+#include "../utils/utils.h"
+```
+В функции ```main()``` вызываем функцию ```SetConsoleOutputCP(1251)```, чтобы задать кодовую страницу консоли ```windows1251```.  
+Это нужно потому, что результат обработки ошибки в конструкторе, при установлении соединения, возвращается в кодировке ```windows1251```. Причем такая кодовая страница ошибки возвращается только при установлении соединения (вот странно, но так уж сделано в PostgreSQL).  
+При выполнении запросов (метод ```exec()```) кодовая страница текста ошибки ```utf-8```. Поэтому в методе ```exec()``` кодовую страницу текста ошибки мы преобразовываем функцией ```cpt()``` из модуля ```utils```.  
 # Рефакторинг класса PGConnection - раскладываем по файлам
 Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/a8cf12a66d54d11897d0ba6898d0301ffb1c75ba) (это ссылка на файлы коммита).
 Теперь описание класса ```PGConnection``` вынесем в отдельный заголовочный файл ```pg_connection.h``` в том же каталоге что и ```app.cpp```.  
