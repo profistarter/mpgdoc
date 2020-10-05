@@ -1,10 +1,14 @@
 ---
 layout: default
-title: Простая. Программа MPG для работы с/nPostgreSQL
+title: Часть 1. Начало
 parent: Разработка mpg
 nav_order: 1
 ---
-1. TOC
+# Часть 1. Начало
+{: .no_toc }
+## Содержание
+{: .no_toc }
+TOC
 {:toc}
   
 # Простая программа MPG для работы с PostgreSQL
