@@ -1,6 +1,6 @@
 ---
 layout: default
-title: mpg
+title: Разработка mpg
 nav_order: 2
 has_children: true
 ---
