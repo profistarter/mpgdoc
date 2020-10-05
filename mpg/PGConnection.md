@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Простая. Программа MPG для работы с/nPostgreSQL
-parent: mpg
+parent: Разработка mpg
 nav_order: 1
 ---
 1. TOC
