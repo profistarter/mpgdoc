@@ -13,7 +13,10 @@
 }
 .highlight .hll { background-color: #373b41 }
 .highlight .c { color: #969896 } /* Comment */
-.highlight .err { color: #cc6666 } /* Error */
+.highlight .err { 
+    color: #cc6666;
+    background-color: inherit;
+} /* Error */
 .highlight .k, .highlight .kv {
   color: #000000;
   font-weight: bold;
