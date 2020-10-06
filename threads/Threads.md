@@ -124,9 +124,7 @@ public:
 ## Конструктор Threads
 Конструктор пустой, только инициализирует свойства класса.
 ```c++
-/* --------------------------------------------------- */
-/*                   IMPLEMENTATION                    */
-/* --------------------------------------------------- */
+
 
 template <typename R, typename ...Args>
 Threads<R, Args...>::Threads(int _num_threads = std::thread::hardware_concurrency())
