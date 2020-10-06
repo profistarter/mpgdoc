@@ -12,6 +12,7 @@ nav_order: 1
 1. TOC
 {:toc}
 # Класс Threads - пул потоков
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/54d4585adab6cdf1dc3a3e3eee52a6766e995150).  
 Создаем папку ```threads```. Папки с подсистемами располагаем на одном уровне: те имеем главную папку ```Мои Проекты```. В ней  находятся папки ```threads```, ```mpg```, ```_config```, ```_include``` и другие.  
   
 Итак, класс ```Threads```.  
@@ -347,7 +348,7 @@ TEST_SUITE("Тест класса Threads"){
 
 ## Еще тест и расширим класс Threads
 Нам нужно проверить, что в очереди не осталось ни одного задания. Для этого в класс ```Threads``` добавим метод ```queue_size()```.  
-В секцию HEADER файла ```threads.hpp``` добавим обпределение:  
+В секцию HEADER файла ```threads.hpp``` добавим определение:  
 ```c++
 public:
     unsigned int queue_size();
@@ -444,7 +445,7 @@ class Test_Threads: public Threads<int, int>
 ```c++
         [num_thread](Queue_Fn task) {
             int res = task(num_thread);
-            CHECK(res == num_thread);
+            //CHECK(res == num_thread);
         }
 ```
 , где в ```[num_thread]``` указываем переменную - значение номера потока. Аргументом этой функции будет задача ```task``` с типом ```Queue_Fn```, т.е. ```int(int)```.  
