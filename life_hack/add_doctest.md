@@ -78,7 +78,7 @@ TEST_SUITE("Тест"){
 Открываем файл ```c_cpp_properties.json``` в папке ```.vscode```. Если нет такого файла, то нажимаем ctrl+shift+P и набираем *"c/c++: Edit Configurations (Json)"*. В раздел ```"includePath"``` добаляем строку ```"${workspaceFolder}/../_include/**"```.  
 Эта строка нужна, чтобы в VSCode правильно работал IntelliSence.  
 c_cpp_properties.json  
-![c_cpp_properties.json](img/add_includePath.png)
+![c_cpp_properties.json](../img/add_includePath.png)
 # Настройка компилятора
 Подготовка VSCode и настройка компилятора описана [здесь](./preparation.md).  
 Добавляем task.json и launch.json. launch.json понадобится нам для отладки тестов.  
