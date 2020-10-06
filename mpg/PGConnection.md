@@ -101,7 +101,7 @@ int main()
 Это нужно потому, что результат обработки ошибки в конструкторе, при установлении соединения, возвращается в кодировке ```windows1251```. Причем такая кодовая страница ошибки возвращается только при установлении соединения (вот странно, но так уж сделано в PostgreSQL).  
 При выполнении запросов (метод ```exec()```) кодовая страница текста ошибки ```utf-8```. Поэтому в методе ```exec()``` кодовую страницу текста ошибки мы преобразовываем функцией ```cpt()``` из модуля ```utils```. Преобразовываем из ```utf-8``` в ```windows1251```.
 # Рефакторинг класса PGConnection - раскладываем по файлам
-Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/1397d931e266bf5db2f86c81aedd586360c717aa) (это ссылка на файлы коммита).
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/1397d931e266bf5db2f86c81aedd586360c717aa) (это ссылка на файлы коммита).  
 Теперь описание класса ```PGConnection``` вынесем в отдельный заголовочный файл ```pg_connection.h``` в том же каталоге что и ```app.cpp```.  
 pg_connection.h  
 ```c++
@@ -189,7 +189,7 @@ task.json
 pg_connection.h  
 ```c++
 ...
-#include <libpq-fe.h>
+#include <vector>
 
 struct Connection_Params {
 private:    
@@ -291,7 +291,7 @@ public:
 pg_connection.cpp  
 ```c++
 ...
-#include <libpq-fe.h>
+#include <vector>
 
 #include <filesystem>
 #include <fstream>
@@ -334,7 +334,7 @@ std::shared_ptr<std::string> PGConnection::load_params_to_str()
 }
 ```  
   
-Метод ```load_params_to_str()``` только читает файл, но теперь надо преобразовать строку в json. Для этого воспользуемся библиотекой [rapidjson](https://github.com/Tencent/rapidjson/). Сохраняем репозиторий на свой компьютер. Создаем папку на одном уровне с нашим проектом ```"_include"``` (подчекивание впереди добавлено, чтобы папка всегда была наверху списка папок). Распаковываем репозиторий и копируем папку ```"include/rapidjson"``` в папку ```"_include"```.  
+Метод ```load_params_to_str()``` только читает файл, но теперь надо преобразовать строку в json. Для этого воспользуемся библиотекой [rapidjson](https://github.com/Tencent/rapidjson/). Сохраняем репозиторий на свой компьютер. Создаем папку на одном уровне с нашим проектом ```"_include"``` (подчекивание впереди добавлено, чтобы папка всегда была наверху списка папок). Распаковываем репозиторий и копируем папку ```"include/rapidjson"``` в папку ```"_include/rapidjson"``` (не забываем про подчеркивание впереди папки include).  
 Открываем файл ```c_cpp_properties.json``` в папке ```.vscode```. Если нет такого файла, то нажимаем ctrl+shift+P и набираем *"c/c++: Edit Configurations (Json)"*. В раздел ```"includePath"``` добаляем строку ```"${workspaceFolder}/../_include/**"```.  
 c_cpp_properties.json  
 ![c_cpp_properties.json](img/add_includePath.png)
