@@ -432,5 +432,5 @@ std::shared_ptr<Connection_Params> PGConnection::parse_params_from_str(const cha
 В конце, в вектор ключей добавляем значение ```NULL``` с помощью метода ```conn_params->add_key()```. Это нужно для функции ```PQconnectdbParams()```, она читает список ключей, пока на встретит NULL. Это написано в [документации к этой функции](https://postgrespro.ru/docs/postgresql/9.6/libpq-connect).
   
 Теперь, чтобы все это скомпилировалось добавим еще один аргумент компилятора: ```"/I", "${workspaceFolder}/../_include",```.  Этот аргумент указывает компилятору где лежит библиотека ```rapidjson```, а также другие библиотеки, которые мы будем включать в будущем.  
-[add_includePath_to_task](img/add_includePath_to_task.png)
+![tasks.json](img/add_includePath_to_task.png)
 
