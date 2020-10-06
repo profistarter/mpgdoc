@@ -12,7 +12,7 @@ nav_order: 1
 1. TOC
 {:toc}
 # Класс Threads - пул потоков
-Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/54d4585adab6cdf1dc3a3e3eee52a6766e995150).  
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/54d4585adab6cdf1dc3a3e3eee52a6766e995150) (этоо ссылка на один из коммитов).  
 Создаем папку ```threads```. Папки с подсистемами располагаем на одном уровне: те имеем главную папку ```Мои Проекты```. В ней  находятся папки ```threads```, ```mpg```, ```_config```, ```_include``` и другие.  
   
 Итак, класс ```Threads```.  
