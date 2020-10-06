@@ -296,11 +296,12 @@ TEST_SUITE("Тест класса Threads"){
     namespace test_threads {
       int static count = 0;
       std::mutex static count_mutex;
+      
       void count_task() {
-          count_mutex.lock();
+          std::lock_guard<std::mutex> guard_mutex(count_mutex);
           count += 1;
-          count_mutex.unlock();
       }
+      
       Threads<void> threads(3);
       std::vector<Threads<void>::Queue_Fn> queue (4, count_task);
 
