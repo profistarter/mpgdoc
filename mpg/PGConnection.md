@@ -297,11 +297,24 @@ pg_connection.cpp
 #include <fstream>
 #include <iostream>
 
-const std::string CONFIG_PATH = "../config/config.json";
+const std::string CONFIG_PATH = "../_config/config.json";
 std::shared_ptr<Connection_Params> connection_params = nullptr;
 
 PGConnection::PGConnection()
 ...
+```
+  
+В папке наших проектов на одном уровне с папкой ```mpg``` создаем папку ```_congig``` (подчеркивание впереди чтобы папку была наверху в списке папок). В папке ```_config```  создаем файл ```congig.json```. В этот файл вынесем параметры подключения к PostgreSQL.  
+```json
+{
+	"connection_params":{
+			"dbname": "testdb",
+			"host": "localhost",
+			"port": "5432",
+			"user": "postgres",
+			"password": "1"
+		}
+}
 ```
   
 В файле ```pg_connection.cpp``` добавим реализацию метода ```load_params_to_str()```. Здесь мы проверяем существует ли файл методом ```std::filesystem::exists()```. Затем создаем поток ```std::fstream config_file``` и читаем из него строки ```params_line``` и соединяем строки в одну выходную строку ```params_str```.  
@@ -336,6 +349,7 @@ std::shared_ptr<std::string> PGConnection::load_params_to_str()
   
 Метод ```load_params_to_str()``` только читает файл, но теперь надо преобразовать строку в json. Для этого воспользуемся библиотекой [rapidjson](https://github.com/Tencent/rapidjson/). Сохраняем репозиторий на свой компьютер. Создаем папку на одном уровне с нашим проектом ```"_include"``` (подчекивание впереди добавлено, чтобы папка всегда была наверху списка папок). Распаковываем репозиторий и копируем папку ```"include/rapidjson"``` в папку ```"_include/rapidjson"``` (не забываем про подчеркивание впереди папки include).  
 Открываем файл ```c_cpp_properties.json``` в папке ```.vscode```. Если нет такого файла, то нажимаем ctrl+shift+P и набираем *"c/c++: Edit Configurations (Json)"*. В раздел ```"includePath"``` добаляем строку ```"${workspaceFolder}/../_include/**"```.  
+Эта строка нужна чтобы в VSCode правильно работал IntelliSence.  
 c_cpp_properties.json  
 ![c_cpp_properties.json](img/add_includePath.png)
 
@@ -378,9 +392,12 @@ std::shared_ptr<Connection_Params> PGConnection::parse_params_from_str(const cha
 }
 
 ```
-Здесь мы создаем объект ```rapidjson::Document d```, который и разбирает передаванную строку. Первая проверка проверяет, что строка в конфигурационном файле является объектом и содержит член ```"connection_params"```. Потом мы читаем член ```"connection_params"``` в переменную ```d_params``` и, после проверки что ```d_params``` - это объект, с помощью итератора перебираем все члены объекта ```d_params```.  
-С помощью функций итератора ```iter->name.GetString()``` и ```iter->value.GetString()``` получаем соответственно название параметра и его значение, и помещаем в соответсвующие векторы структуры ```Connection_Params``` с помощью методов ```conn_params->add_key()``` и ```conn_params->add_value()```.  
+Здесь мы создаем объект ```rapidjson::Document d```, который и разбирает переданную строку. Первая проверка проверяет, что строка в конфигурационном файле является объектом и содержит член ```"connection_params"```. Потом мы читаем член ```"connection_params"``` в переменную ```d_params``` и, после проверки что ```d_params``` - это объект, с помощью итератора перебираем все члены объекта ```d_params```.  
+С помощью функций итератора ```iter->name.GetString()``` и ```iter->value.GetString()``` получаем название параметра и его значение, и помещаем в соответсвующие векторы структуры ```Connection_Params``` с помощью методов ```conn_params->add_key()``` и ```conn_params->add_value()```.  
 В конце, в вектор ключей добавляем значение ```NULL``` с помощью метода ```conn_params->add_key()```. Это нужно для функции ```PQconnectdbParams()```, она читает список ключей, пока на встретит NULL. Это написано в [документации к этой функции](https://postgrespro.ru/docs/postgresql/9.6/libpq-connect).
   
+Теперь, чтобы все это скомпилировалось добавим еще один аргумент компилятора: ```"/I", "${workspaceFolder}/../_include",```.  Этот аргумент указывает компилятору где лежит библиотека ```rapidjson```, а также другие библиотеки, которые мы будем включать в будущем.  
+
+
 Полный код этого раздела можно найти [здесь]().
 
