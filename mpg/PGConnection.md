@@ -384,7 +384,7 @@ std::shared_ptr<std::string> PGConnection::load_params_to_str()
   
 Метод ```load_params_to_str()``` только читает файл, но теперь надо преобразовать строку в json. Для этого воспользуемся библиотекой [rapidjson](https://github.com/Tencent/rapidjson/). Сохраняем репозиторий на свой компьютер. Создаем папку на одном уровне с нашим проектом ```"_include"``` (подчекивание впереди добавлено, чтобы папка всегда была наверху списка папок). Распаковываем репозиторий и копируем папку ```"include/rapidjson"``` в папку ```"_include/rapidjson"``` (не забываем про подчеркивание впереди папки include).  
 Открываем файл ```c_cpp_properties.json``` в папке ```.vscode```. Если нет такого файла, то нажимаем ctrl+shift+P и набираем *"c/c++: Edit Configurations (Json)"*. В раздел ```"includePath"``` добаляем строку ```"${workspaceFolder}/../_include/**"```.  
-Эта строка нужна чтобы в VSCode правильно работал IntelliSence.  
+Эта строка нужна, чтобы в VSCode правильно работал IntelliSence.  
 c_cpp_properties.json  
 ![c_cpp_properties.json](img/add_includePath.png)
 
