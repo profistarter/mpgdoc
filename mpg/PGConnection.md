@@ -326,7 +326,7 @@ PGConnection::PGConnection()
 }
 ```
   
-В файле ```pg_connection.cpp``` изменим конструктор. Теперь для создания соединения используем функцию ```PQconnectdbParams()``` библиотеки ```libpq``` (описание функции [здесь] (https://postgrespro.ru/docs/postgresql/9.6/libpq-connect)).  
+В файле ```pg_connection.cpp``` изменим конструктор. Теперь для создания соединения используем функцию ```PQconnectdbParams()``` библиотеки ```libpq``` (описание функции [здесь](https://postgrespro.ru/docs/postgresql/9.6/libpq-connect)).  
 ```c++
 ...
 PGConnection::PGConnection()
