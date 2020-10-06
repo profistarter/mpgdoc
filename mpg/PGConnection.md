@@ -101,7 +101,7 @@ int main()
 Это нужно потому, что результат обработки ошибки в конструкторе, при установлении соединения, возвращается в кодировке ```windows1251```. Причем такая кодовая страница ошибки возвращается только при установлении соединения (вот странно, но так уж сделано в PostgreSQL).  
 При выполнении запросов (метод ```exec()```) кодовая страница текста ошибки ```utf-8```. Поэтому в методе ```exec()``` кодовую страницу текста ошибки мы преобразовываем функцией ```cpt()``` из модуля ```utils```. Преобразовываем из ```utf-8``` в ```windows1251```.
 # Рефакторинг класса PGConnection - раскладываем по файлам
-Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/a8cf12a66d54d11897d0ba6898d0301ffb1c75ba) (это ссылка на файлы коммита).
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/1397d931e266bf5db2f86c81aedd586360c717aa) (это ссылка на файлы коммита).
 Теперь описание класса ```PGConnection``` вынесем в отдельный заголовочный файл ```pg_connection.h``` в том же каталоге что и ```app.cpp```.  
 pg_connection.h  
 ```c++
@@ -135,8 +135,10 @@ pg_connection.cpp
 ```c++
 #include "pg_connection.h"
 #include <string>
+#include <iostream>
 #include <mutex>
 #include <libpq-fe.h>
+#include "../utils/utils.h"
 
 PGConnection::PGConnection()
 {
@@ -152,6 +154,7 @@ PGConnection::PGConnection()
 
     if (PQstatus(connection.get()) != CONNECTION_OK)
     {
+        std::cout << PQerrorMessage(connection.get()) << std::endl;
         throw std::runtime_error(PQerrorMessage(connection.get()));
     }
 };
@@ -159,7 +162,8 @@ PGConnection::PGConnection()
 int PGConnection::exec(const char *query)
 {
     PGresult *res = PQexec(connection.get(), query);
-    if (PQresultStatus(res) == PGRES_FATAL_ERROR){
+    if (PQresultStatus(res) == PGRES_FATAL_ERROR) {
+        std::cout << utils::cpt(PQerrorMessage(connection.get())) << std::endl;
         throw std::runtime_error(PQerrorMessage(connection.get()));
     }
     int result_n = PQntuples(res);
