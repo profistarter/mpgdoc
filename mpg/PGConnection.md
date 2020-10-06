@@ -15,7 +15,7 @@ nav_order: 1
   
 # Простая программа mpg для работы с PostgreSQL
 В листинге приведен код простой программы, которая устанавливает соединение и выполняет запрос.  
-Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/e90c25c6c5e295553a146ce77af7832192d54e6a) (это ссылка на файлы коммита).  
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/0823c2851e4e30aa2705d1dff6ebcdce786d4fa7) (это ссылка на файлы коммита).  
 В папке с нашими проектами, например, ```c:/Мои проекты```, создаем папку ```mpg``` в этой папке добавим файл ```app.cpp```. Поместим код программы в файл ```app.cpp```.  
 
 app.cpp
@@ -62,7 +62,7 @@ public:
     {
         PGresult *res = PQexec(connection.get(), query);
         if (PQresultStatus(res) == PGRES_FATAL_ERROR){
-            std::cout << cpt(PQerrorMessage(connection.get())) << std::endl; // +++++
+            std::cout << utils::cpt(PQerrorMessage(connection.get())) << std::endl; // +++++
             throw std::runtime_error(PQerrorMessage(connection.get()));
         }
         int result_n = PQntuples(res);
