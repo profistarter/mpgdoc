@@ -84,7 +84,7 @@ c_cpp_properties.json
 Добавляем task.json и launch.json. launch.json понадобится нам для отладки тестов.  
 В tasks.json в аргументах компилятора ```"args"``` указываем:  
 ```"test.cpp"``` - компилируемый файл,
-```"${workspaceFolder}\\test.exe"``` - конечный файл (тестовое приложение).
+```"${workspaceFolder}\\test.exe"``` - конечный файл (тестовое приложение).  
 tasks.json  
 ```json
 {
