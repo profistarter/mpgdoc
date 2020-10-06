@@ -293,30 +293,33 @@ threads.hpp
 /* --------------------------------------------------- */
 
 TEST_SUITE("Тест класса Threads"){
-    int static count = 0;
-    std::mutex static count_mutex;
-    void count_task() {
-        count_mutex.lock();
-        count += 1;
-        count_mutex.unlock();
-    }
-    Threads<void> threads(3);
-    std::vector<Threads<void>::Queue_Fn> queue (4, count_task);
+    namespace test_threads {
+      int static count = 0;
+      std::mutex static count_mutex;
+      void count_task() {
+          count_mutex.lock();
+          count += 1;
+          count_mutex.unlock();
+      }
+      Threads<void> threads(3);
+      std::vector<Threads<void>::Queue_Fn> queue (4, count_task);
 
-    TEST_CASE("Количество вызовов задач") {
-        threads.add_queue(queue);
-        threads.run();
-        CHECK(count == 4);
+      TEST_CASE("Количество вызовов задач") {
+          threads.add_queue(queue);
+          threads.run();
+          CHECK(count == 4);
+      }
     }
 }
 ```
-Создаем счетчик, который будем увеличивать из нашего задания, помещенного в очередь.  
+Обратите внимание, что в секции TESTS внутри TEST_SUITE мы ввели пространство имен ```test_threads```. Это нужно чтобы одинаковые названия статических членов в разных тестах (мы еще будем делать тесты) не конфликтовали.  
+В приведенном выше листинге мы создаем счетчик, который будем увеличивать из нашего задания, помещенного в очередь.  
 Так как задание будет выполнятся из потока, защищаем счетчик мьютексом (см. [здесь](http://scrutator.me/post/2012/04/04/parallel-world-p1.aspx)).  
 ```c++
     int static count = 0;
     std::mutex static count_mutex;
 ```
-Далее, собственно, само задание, которое будем помещать в очередь.  
+Далее приведено само задание, которое будем помещать в очередь.  
 Здесь просто увеличиваем счетчик.  
 ```c++
     void count_task() {
