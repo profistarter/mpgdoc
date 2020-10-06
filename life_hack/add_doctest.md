@@ -26,9 +26,7 @@ nav_order: 3
 #include "threads.hpp"
 
 int main(int argc, char** argv) {
-    SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    setlocale(LC_CTYPE, ".1251");
 
     doctest::Context context;
     context.applyCommandLine(argc, argv);
@@ -48,11 +46,9 @@ int main(int argc, char** argv) {
 ```#include "threads.hpp"``` - наша библиотека, которую мы тестируем.  
   
 ```c++
-    SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    setlocale(LC_CTYPE, ".1251");
 ```
-Этот фрагмент позволяет отображать кириллицу в консоли.  
+Эта функция позволяет отображать кириллицу в консоли.  
   
 Всесь дальнейший код функции main() - это конфигурирование библиотеки doctest. Мы взяли код из документации.
 
@@ -78,6 +74,11 @@ TEST_SUITE("Тест"){
 }
 ```
   
+# Настройка Конфигурации VSCode
+Открываем файл ```c_cpp_properties.json``` в папке ```.vscode```. Если нет такого файла, то нажимаем ctrl+shift+P и набираем *"c/c++: Edit Configurations (Json)"*. В раздел ```"includePath"``` добаляем строку ```"${workspaceFolder}/../_include/**"```.  
+Эта строка нужна, чтобы в VSCode правильно работал IntelliSence.  
+c_cpp_properties.json  
+![c_cpp_properties.json](img/add_includePath.png)
 # Настройка компилятора
 Подготовка VSCode и настройка компилятора описана [здесь](./preparation.md).  
 Добавляем task.json и launch.json. launch.json понадобится нам для отладки тестов.  
