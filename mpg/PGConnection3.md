@@ -422,23 +422,23 @@ void PGPool_Async<R, Args...>::loop(std::shared_ptr<TQueue<Queue_Fn>> _queue, Ar
 ```c++
 void async(const int &num_query, const Weight &weight, const int &num_connections){
     std::shared_ptr<TQueue<String_Fn>> queue = get_queue(num_query);
-    PGPool_Async<std::string, Weight, int> pool_async{num_connections};
+    PGPool_Async<std::string, Weight> pool_async{num_connections};
     Timer t2;
-    pool_async.run(queue, weight, 1);
+    pool_async.run(queue, weight);
     std::cout << " " << t2.elapsed() << " \t |";
 }
 
 void async_threads(const int &num_query, const Weight &weight, const int &num_connections){
     std::shared_ptr<TQueue<String_Fn>> queue = get_queue(num_query);
-    PGPool_Async<std::string, Weight, int> pool_async{num_connections};
-    PGPool_Async<std::string, Weight, int> pool_async2{num_connections};
+    PGPool_Async<std::string, Weight> pool_async{num_connections};
+    PGPool_Async<std::string, Weight> pool_async2{num_connections};
     Timer t3;
     {
         std::vector<std::thread> threads(2);
-        threads[0] = std::thread(&PGPool_Async<std::string, Weight, int>::run,
-            std::ref(pool_async), std::ref(queue), weight, 1);
-        threads[1] = std::thread(&PGPool_Async<std::string, Weight, int>::run,
-            std::ref(pool_async2), std::ref(queue), weight, 2);
+        threads[0] = std::thread(&PGPool_Async<std::string, Weight>::run,
+            std::ref(pool_async), std::ref(queue), weight);
+        threads[1] = std::thread(&PGPool_Async<std::string, Weight>::run,
+            std::ref(pool_async2), std::ref(queue), weight);
 
         std::vector<std::thread>::iterator iter = threads.begin();
         iter = threads.begin();
