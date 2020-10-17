@@ -2,7 +2,7 @@
 layout: default
 title: Часть 3. Используем асинхронность
 parent: Разработка mpg
-nav_order: 2
+nav_order: 3
 ---
 # Часть 3. Используем асинхронность
 {: .no_toc }  
