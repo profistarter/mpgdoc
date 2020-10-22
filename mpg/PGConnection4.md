@@ -126,7 +126,7 @@ nav_order: 4
 ```
 Здесь все понятно, кроме, пожалуй вот этой строки ```"${workspaceFolder}\\..\\mpgapp"```. Как уже говорилось в предыдущем разделе? файл почему-то компилируется в корень папки с проектами с названием ```mpgapp```.  
   
-## mpg\.vscode\c_cpp_properties.json
+## mpg/.vscode/c_cpp_properties.json
 Для правильной работы ```intellisense``` необходимо настроить конфигурацию модуля с++. Без этого код будет подсвечиваться красными волнистыми линиями. Откроем файл ```c_cpp_properties.json``` и добавим конфигурацию для линукс:  
 ```json
     "configurations": [
@@ -287,7 +287,7 @@ Threads<R, Args...>::Threads(int _num_threads)
     throw "No config file. Add config file config/config.json";
 ```
   
-# mpg\pg_pool_async.hpp
+## mpg/pg_pool_async.hpp
 Добавим:  
 ```c++
 #include <cstring>// linux for strerror()
