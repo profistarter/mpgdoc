@@ -304,6 +304,15 @@ Threads<R, Args...>::Threads(int _num_threads)
 #include <cstring>// linux for strerror()
 ```
 Этот модуль нужен для работы функции ```strerror()``` в линукс.
+  
+В функции ```select()``` исправьте первый аргумент:  
+```c++
+        if (select(nfds+1, &input_mask, &output_mask, NULL, &timeout) < 0)
+        {
+            ...
+        }
+```
+В windows он не учитывался. В линукс важно, чтобы значение было на единицу больше значения самого большого дескриптора.  См. [здесь](http://ru.manpages.org/select/2).
 
 ## mpg/app.cpp
 ```c++
