@@ -276,6 +276,12 @@ Threads<R, Args...>::Threads(int _num_threads)
 ```
   
 # Исправим программу mpg
+## mpg/pg_connection.h
+Добавим модуль  ```#include <memory>```. Мы используем ```shared_ptr```. Странно, что в windows компилировалось.  
+```c++
+#include <memory>
+```
+  
 ## mpg/pg_connection.cpp
 Здесь неверно написана работа с ```exceptions```. Позже мы пересмотрим работу с ```exceptions```.
 Включим модуль ```exceptions```:  
@@ -301,6 +307,9 @@ Threads<R, Args...>::Threads(int _num_threads)
 
 ## mpg/app.cpp
 ```c++
+#ifdef _WIN32  
+#include <windows.h>
+#endif
 ...
 
 int main()
@@ -313,11 +322,13 @@ int main()
     return 0;
 }
 ```  
+Заголовочный файл ```#include <windows.h>``` мы заключили в конструкцию: ```#ifdef _WIN32  #endif```, хотя он, похоже, вообще не нужен. Без него работает в windows.
+
 Так как ```SetConsoleOutputCP(1251);``` работает только в windows, заключим эту функцию в следущую конструкцию: ```#ifdef _WIN32  #endif```. Подробнее [здесь](https://coderoad.ru/6649936/C-компиляция-на-Windows-и-Linux-переключатель-ifdef).
 
 Кроме того, компилятор ```g++``` под линукс более требовательный. Например выдает ошибку если не включить возврат из функции ```return 0```.  
   
 ## mpg/test.cpp
 Заключим в конструкцию: ```#ifdef _WIN32 ... #endif``` следующий код:
-- ```#include <windows.h>``` - хотя, этот заголовочный файл можно вообще убрать.
+- ```#include <windows.h>``` - хотя, этот заголовочный файл можно, вообще, убрать.
 - ```SetConsoleOutputCP(1251);```
