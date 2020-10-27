@@ -11,6 +11,25 @@ nav_order: 4
 Как установить VSCode на Ubuntu можно найти [здесь](https://losst.ru/kak-ustanovit-visual-studio-code-na-ubuntu)  или [здесь](https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-20-04/).  
 Как установить ```с++``` на ubuntu смотри [здесь](https://linuxconfig.org/how-to-install-g-the-c-compiler-on-ubuntu-20-04-lts-focal-fossa-linux). Поисковик в помощь.  
 Не забудем поставить модуль с++ для VSCode.  
+Установка PostgreSQL на линукс [здесь](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04-ru).  
+PostgreSQL устанавливается на линукс с ролью postgres по умолчанию без пароля. Т.е. нужно задать пароль. 
+В консоли линукс набираем:  
+```
+~> sudo -u postgres psql postgres
+postgres=# \password postgres
+postgres=# \q
+```
+Теперь создаем базу данных:  
+```
+~> sudo psql -h localhost -p 5432 -U postgres
+postgres=# CREATE DATABASE testdb;
+CREATE DATABASE
+postgres=# \c testdb
+testdb=#
+```
+Если у вас появилось приглашение ```testdb=#```, то все в порядке. Для выхода наберите ```\q```.    
+  
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/90125cb4fc948396317f013c712c3b005cd0a350).
 
 ## Содержание
 {: .no_toc }  
@@ -350,3 +369,7 @@ int main()
 Заключим в конструкцию: ```#ifdef _WIN32 ... #endif``` следующий код:
 - ```#include <windows.h>``` - хотя, этот заголовочный файл можно, вообще, убрать.
 - ```SetConsoleOutputCP(1251);```
+  
+# Заключение
+В папке ```threads/.vscode``` есть еще один ```task.json``` с задачей компиляции тестов для класса ```Treads```. Мы его не стали переносить в линукс, потому что эта задача больше не используется. Тесты класса  ```Threds``` запускаются из тестов нашего главного проиложения в папке ```mpg```.  
+В windows в режиме отладки русская кодировка выводится неправильно. Это, скорее всего, связано с отличающейся константой ```_WIN32```, используемой при отладке. Но, пока разбираться не стали.
