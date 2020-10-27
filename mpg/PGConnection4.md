@@ -34,7 +34,7 @@ nav_order: 4
                 "../utils/utils.cpp",           
                 "pg_connection.cpp",
                 "-o",
-                "${workspaceFolder}\\app",
+                "${workspaceFolder}/app",
                 "-I", "/usr/include/postgresql",
                 "-I", "${workspaceFolder}/../utils",
                 "-I", "${workspaceFolder}/../_include",
@@ -63,7 +63,7 @@ nav_order: 4
                 "../utils/utils.cpp",           
                 "pg_connection.cpp",
                 "-o",
-                "${workspaceFolder}\\test",
+                "${workspaceFolder}/test",
                 "-I", "/usr/include/postgresql",
                 "-I", "${workspaceFolder}/../utils",
                 "-I", "${workspaceFolder}/../_include",
@@ -86,7 +86,7 @@ nav_order: 4
 Поясним аргументы компилятора:
 - ```"-std=c++1z"``` - указывает компилятору использовать стандарт с++17;
 - далее идут исходные файлы нашей программы;
-- ```"${workspaceFolder}\\app"``` - выходное имя файла скомпилированной программы. VSCode в линукс работает немного по другому и после компиляции выходной файл появляется не в папке ```mpg```, а в корневой папке наших проектов. И выходной файл, почему-то, называется ```mpgapp```;
+- ```"${workspaceFolder}/app"``` - выходное имя файла скомпилированной программы;
 - ```"-I", "/usr/include/postgresql"``` - в отличие от windows заголовочные файлы лежат где положено можно посмотреть подсказку [здесь](https://www.linux.org.ru/forum/general/11736854);
 - далее идут папки "наших" папок заголовочных файлов;
 - ```"-L", "/usr/lib/x86_64-linux-gnu",``` - библиотеки тоже лежат где положено;
@@ -101,7 +101,7 @@ nav_order: 4
             "name": "app linux",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\..\\mpgapp",
+            "program": "${workspaceFolder}\\app",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
@@ -113,7 +113,7 @@ nav_order: 4
             "name": "tests linux",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\..\\mpgtest",
+            "program": "${workspaceFolder}\\test",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
@@ -124,7 +124,7 @@ nav_order: 4
     ]
 
 ```
-Здесь все понятно, кроме, пожалуй, вот этой строки ```"${workspaceFolder}\\..\\mpgapp"```. Как уже говорилось в предыдущем разделе: файл, почему-то, компилируется в корень папки с проектами с названием ```mpgapp```.  
+Здесь, вроде, все понятно.  
   
 ## mpg/.vscode/c_cpp_properties.json
 Для правильной работы ```intellisense``` необходимо настроить конфигурацию модуля с++. Без этого код будет подсвечиваться красными волнистыми линиями. Откроем файл ```c_cpp_properties.json``` и добавим конфигурацию для линукс:  
@@ -283,7 +283,7 @@ Threads<R, Args...>::Threads(int _num_threads)
 ```
   
 ## mpg/pg_connection.cpp
-Здесь неверно написана работа с ```exceptions```. Позже мы пересмотрим работу с ```exceptions```.
+Здесь неверно написана работа с ```exceptions```. Позже мы пересмотрим работу с ```exceptions``` в этом классе.
 Включим модуль ```exceptions```:  
 ```c++
 #include <exception>
@@ -295,7 +295,16 @@ Threads<R, Args...>::Threads(int _num_threads)
 ```
 следующей конструкцией:  
 ```c++
-    throw "No config file. Add config file config/config.json";
+    throw std::runtime_error("No config file. Add config file config/config.json");
+    
+```
+И изменим ```catch``` секцию: 
+```c++
+    ...
+    
+    catch(std::exception& e) {
+        throw;
+    }
 ```
   
 ## mpg/pg_pool_async.hpp
