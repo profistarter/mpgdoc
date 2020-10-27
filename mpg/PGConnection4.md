@@ -16,9 +16,10 @@ PostgreSQL устанавливается на линукс с ролью postgr
 В консоли линукс набираем:  
 ```
 ~> sudo -u postgres psql postgres
-postgres=# \password postgres
-postgres=# \q
+postgres=# \password postgre
 ```
+Указываем пароль.  Для выхода наберите ```\q```. 
+  
 Теперь создаем базу данных:  
 ```
 ~> sudo psql -h localhost -p 5432 -U postgres
