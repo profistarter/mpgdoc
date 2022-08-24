@@ -35,7 +35,7 @@ testdb=#
 sudo apt-get install libpq-dev
 ```
 
-Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/90125cb4fc948396317f013c712c3b005cd0a350).
+Рабочий проект можно найти [здесь](https://github.com/profistarter/mpg/tree/5eb821309be7a26eac21a7f880599cc2255d4ae5).
 
 ## Содержание
 {: .no_toc }  
