@@ -161,7 +161,8 @@ sudo apt-get install libpq-dev
             "includePath": [
                 "${workspaceFolder}/**",
                 "${default}",
-                "${workspaceFolder}/../_include/**" 
+                "${workspaceFolder}/../_include/**",
+                "/usr/include/postgresql" 
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
